@@ -44,11 +44,11 @@ class CharacterCreation:
     def display_class_info(self, class_name):
         setup = self.setups[class_name]
         print(f"\nClass: {class_name.capitalize()}")
-        print(f"  Health: {setup['health']}")
-        print(f"  Speed: {setup['speed']}")
-        print(f"  Defence: {setup['defence']}")
-        print(f"  Starting Weapon: {setup['starting_weapon']}")
-        print(f"  Skills: {', '.join(setup['skills'])}")
+        print(f"Health: {setup['health']}")
+        print(f"Speed: {setup['speed']}")
+        print(f"Defence: {setup['defence']}")
+        print(f"Starting Weapon: {setup['starting_weapon']}")
+        print(f"Skills: {', '.join(setup['skills'])}")
         print('-' * 30)
 
     def create_character(self):

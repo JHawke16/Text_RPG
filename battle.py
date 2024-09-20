@@ -61,7 +61,7 @@ class Battle:
                 print('Invalid input! Please enter a valid number')
 
     def choose_target(self, targets):
-        # Selecting a random target for now from the list of avaliable targets
+        # Selecting a random target for now from the list of available targets
         alive_targets = [target for target in targets if target.check_alive()]
         if alive_targets:
             return random.choice(alive_targets)
