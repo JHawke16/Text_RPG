@@ -1,5 +1,5 @@
 from character_creation import CharacterCreation
-from game_menu import GameMenu
+from tutorial import Tutorial
 
 
 class MainMenu:
@@ -36,5 +36,5 @@ class MainMenu:
         character_creation = CharacterCreation()
         player = character_creation.create_character()
         print(f"\nWelcome, {player.name} the {player.class_type.capitalize()}!")
-        # Proceeding to the game menu
-        GameMenu(player).display_menu()
+        # Proceeding to the tutorial
+        Tutorial(player).start()

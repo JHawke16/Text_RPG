@@ -42,7 +42,6 @@ class GameMenu:
             else:
                 print("Invalid choice, please try again.")
 
-
     def view_stats(self):
         print(f"\n{self.player.name}'s Stats:")
         print(f"Health: {self.player.health}")

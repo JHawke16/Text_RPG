@@ -1,6 +1,9 @@
+import random
+
+
 class PartyMember:
 
-    def __init__(self, name, health, level, exp, speed, weapon, defence, class_type):
+    def __init__(self, name, health, level, exp, speed, weapon, defence, class_type, skills):
         self.name = name
         self.health = health
         self.level = level
@@ -10,6 +13,7 @@ class PartyMember:
         self.defence = defence
         self.exp_to_next_level = 10
         self.class_type = class_type
+        self.skills = skills
 
     def check_alive(self):
         return self.health > 0
@@ -39,3 +43,15 @@ class PartyMember:
         print(f"{self.name} leveled up to Level {self.level}!")
         # Example: Increase exp required for next level
         self.exp_to_next_level = int(self.exp_to_next_level * 1.5)
+
+    def skill_attack(self):
+        # Selecting a skill random from the available skills with enough energy in the weapon
+        available_skills = [skill for skill in self.skills if skill.energy <= self.weapon.energy]
+        if available_skills:
+            selected_skill = random.choice(available_skills)
+            print(f"\n{self.name} uses {selected_skill.name}!")
+            self.weapon.energy -= selected_skill.energy  # Deduct energy from weapon
+            return selected_skill.damage  # Return damage to apply
+        else:
+            print(f"{self.name}'s weapon does not have enough energy for any skills.")
+            return False  # No skill used

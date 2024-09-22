@@ -9,7 +9,7 @@ class WeaponFactory:
         self.weapons_blueprints = {
             'Copper Sword': {
                 'base_damage': 7,
-                'base_energy': 1,
+                'base_energy': 2,
                 'value': 5,
                 'allowed_classes': ['warrior', 'berserker'],
                 'rarity_weights': {
@@ -20,7 +20,7 @@ class WeaponFactory:
             },
             'Claw': {
                 'base_damage': 5,
-                'base_energy': 1,
+                'base_energy': 2,
                 'value': 0,
                 'allowed_classes': 'monster',
                 'rarity_weights': {

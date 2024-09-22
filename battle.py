@@ -4,7 +4,6 @@ import random
 
 
 class Battle:
-
     def __init__(self, player, enemies, party=None):
         self.player = player
         self.enemies = enemies
@@ -25,47 +24,94 @@ class Battle:
         self.end_battle()
 
     def take_turn(self, combatant):
-        # Placeholder logic for combatant taking their turn
         if isinstance(combatant, Player):
-            target = self.player_choose_target(self.enemies)
+            self.player_turn()
         elif isinstance(combatant, PartyMember):
-            target = self.choose_target(self.enemies)
+            self.party_member_turn(combatant)
         else:
-            target = self.choose_target([self.player] + self.party)
+            self.enemy_turn(combatant)
 
+    def player_turn(self):
+        print(f"\n{self.player.name}'s turn!")
+        print("1. Attack")
+        print("2. Use Skill")
+
+        choice = input("Choose your action: ")
+
+        if choice == '1':
+            self.basic_attack(self.player, self.enemies)
+        elif choice == '2':
+            damage = self.player.skill_attack()
+            if damage:
+                target = self.choose_target(self.enemies, self.player)
+                if target:
+                    print(f"{self.player.name} uses a skill on {target.name} for {damage} damage!")
+                    target.take_damage(damage)
+            else:
+                # Retry if the player didn't select a valid skill or have enough energy
+                self.player_turn()
+        else:
+            print("Invalid choice. Try again.")
+            self.player_turn()
+
+    def party_member_turn(self, party_member):
+        if random.choice(['attack', 'skill']) == 'skill':
+            damage = party_member.skill_attack()
+            if damage:
+                target = self.choose_target(self.enemies, party_member)
+                if target:
+                    print(f"{party_member.name} uses a skill on {target.name} for {damage} damage!")
+                    target.take_damage(damage)
+            else:
+                print(f"{party_member.name} does not have enough energy for any skills.")
+                self.basic_attack(party_member, self.enemies)
+        else:
+            self.basic_attack(party_member, self.enemies)
+
+    def enemy_turn(self, enemy):
+        if random.choice(['attack', 'skill']) == 'skill':
+            damage = enemy.skill_attack()
+            if damage:
+                target = self.choose_target([self.player] + self.party, enemy)
+                if target:
+                    print(f"{enemy.name} uses a skill on {target.name} for {damage} damage!")
+                    target.take_damage(damage)
+            else:
+                print(
+                    f"{enemy.name} does not have enough energy for any skills.")  # Debugging only, remove in main game
+                self.basic_attack(enemy, [self.player] + self.party)
+        else:
+            self.basic_attack(enemy, [self.player] + self.party)
+
+    def basic_attack(self, attacker, targets):
+        target = self.choose_target(targets, attacker)
         if target:
-            print('-----------------------------')
-            print(f'\n\n{combatant.name} attacks {target.name} for {combatant.weapon_attack()} damage')
-            target.take_damage(combatant.weapon_attack())
+            print(f"\n{attacker.name} attacks {target.name} for {attacker.weapon_attack()} damage!")
+            target.take_damage(attacker.weapon_attack())
 
-    def player_choose_target(self, targets):
-        # Displaying alive targets to the player
+    def choose_target(self, targets, attacker):
         alive_targets = [target for target in targets if target.check_alive()]
         if not alive_targets:
             return None
 
-        while True:
-            print('-----------------------------')
-            print('\nChoose an enemy to attack:')
+        if isinstance(attacker, Player):
+            # Player chooses a target
+            print("\nChoose a target:")
             for i, target in enumerate(alive_targets):
-                print(f'{i + 1}. {target.name} - Health: {target.health}')  # Health only showing for debugging
+                print(f"{i + 1}. {target.name} (HP: {target.health})")
 
-            # Getting the player choice
+            choice = input("\nEnter the number of the target: ")
             try:
-                choice = int(input('\nEnter the number of which enemy you want to attack\nChoice:')) - 1
+                choice = int(choice) - 1
                 if 0 <= choice < len(alive_targets):
                     return alive_targets[choice]
-                else:
-                    print('Invalid choice! Please enter a valid number')
             except ValueError:
-                print('Invalid input! Please enter a valid number')
-
-    def choose_target(self, targets):
-        # Selecting a random target for now from the list of available targets
-        alive_targets = [target for target in targets if target.check_alive()]
-        if alive_targets:
+                pass
+            print("Invalid choice.")
+            return self.choose_target(alive_targets, attacker)  # Retry if invalid
+        else:
+            # Enemies and party members choose randomly
             return random.choice(alive_targets)
-        return None
 
     def battle_active(self):
         if not self.player.check_alive():
@@ -76,24 +122,6 @@ class Battle:
 
     def end_battle(self):
         if self.player.check_alive():
-            print('-----------------------------')
-            print('\n\nBattle Won!')
-            self.distribute_loot()
+            print("\nBattle Won!")
         else:
-            print('\n\nBattle Lost!')
-
-    def distribute_loot(self):
-        total_exp = sum(enemy.drop_exp() for enemy in self.enemies)
-        total_gold = sum(enemy.drop_gold() for enemy in self.enemies)
-
-        # Player gets the gold
-        self.player.gain_gold(total_gold)
-
-        # Splitting exp between player and party members
-        members = [self.player] + self.party
-        if members:
-            exp_per_member = total_exp // len(members)
-            for member in members:
-                member.gain_exp(exp_per_member)
-            print(f'\nExp Earned: {total_exp} exp for all party members')
-            print('-----------------------------')
+            print("\nBattle Lost!")

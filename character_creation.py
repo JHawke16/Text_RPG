@@ -1,5 +1,6 @@
 from player import Player
 from weapon_factory import WeaponFactory
+from skill_factory import SkillFactory
 
 
 class CharacterCreation:
@@ -13,7 +14,7 @@ class CharacterCreation:
                 'defence': 5,
                 'starting_weapon': 'Copper Sword',
                 'class_type': 'warrior',
-                'skills': ['Slash', 'Swipe']  # Placeholder skills
+                'skills': ['Slash', 'Swipe']
             },
             'rogue': {
                 'health': 17,
@@ -21,7 +22,7 @@ class CharacterCreation:
                 'defence': 2,
                 'starting_weapon': 'Dagger',  # Placeholder
                 'class_type': 'rogue',
-                'skills': ['Sap, Backstab']  # PLaceholder skills
+                'skills': ['Sap, Backstab']  # Placeholder skills
             },
             'mage': {
                 'health': 15,
@@ -73,6 +74,10 @@ class CharacterCreation:
         weapon_factory = WeaponFactory()
         starting_weapon = weapon_factory.create_weapon(setup['starting_weapon'])
 
+        # Use the SkillFactory to create actual Skill objects
+        skill_factory = SkillFactory()
+        skills = [skill_factory.create_skill(skill_name) for skill_name in setup['skills']]
+
         # Returning player instance
         return Player(
             name=name,
@@ -83,5 +88,6 @@ class CharacterCreation:
             weapon=starting_weapon,
             defence=setup['defence'],
             gold=0,
-            class_type=setup['class_type']
+            class_type=setup['class_type'],
+            skills=skills
         )
