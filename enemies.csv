@@ -1,0 +1,7 @@
+﻿name,health,speed,weapon,defence,class_type,skills
+Cave Goblin,10,3,Claw,1,weak;small;slow;monster,Slash;Whack
+Orc Soldier,20,7,Jagged Sword,2,weak;small;monster,Slash;Whack;Maul
+Wild Boar,15,7,Tusk,1,weak;small;animal;quest,Impale
+Wild Dog,12,8,Bite,1,weak;small;animal;quest,Maul
+Gremlin Mutant,7,5,Copper Knife,0,weak;small;monster,Strike
+Orc Shaman,35,5,Bone Staff,2,weak;leader;small;mage;monster,Chaos Bolt;Bone Shard

@@ -1,0 +1,15 @@
+﻿name,damage,energy,value,allowed_weapons,basic_weight,common_weight,masterwork_weight,rare_weight,epic_weight
+Slash,10,2,15,sword;axe;monster,100,0,0,0,0
+Swipe,12,3,20,sword;axe;monster,70,30,0,0,0
+Fireball,20,4,25,staff;wand;monster,70,30,0,0,0
+Sap,12,1,20,dagger;knife,100,0,0,0,0
+Whack,10,1,15,club;monster,100,0,0,0,0
+Maul,12,2,0,monster,100,0,0,0,0
+Brutal Slash,20,3,35,sword;axe;monster,50,40,10,0,0
+Backstab,16,3,25,dagger;knife,70,30,0,0,0
+Flames,16,3,20,staff;wand;monster,70,30,0,0,0
+Impale,12,2,15,dagger;knife;monster,70,30,0,0,0
+Strike,9,1,10,sword;axe;monster;dagger;knife,100,0,0,0,0
+Burn,23,5,25,staff;wand;monster,70,30,0,0,0
+Chaos Bolt,20,3,30,staff;wand;monster,70,30,0,0,0
+Bone Shard,15,1,30,staff;wand;monster,70,30,0,0,0

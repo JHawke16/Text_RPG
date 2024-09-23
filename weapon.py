@@ -1,12 +1,13 @@
 class Weapon:
 
-    def __init__(self, name, damage, energy, value, rarity, allowed_classes):
+    def __init__(self, name, damage, energy, value, rarity, allowed_classes, weapon_type):
         self.name = name
         self.damage = damage
         self.energy = energy
         self.value = value
         self.rarity = rarity
         self.allowed_classes = allowed_classes  # List of classes that can equip this weapon
+        self.weapon_type = weapon_type
         self.apply_rarity_modifier()
 
     def apply_rarity_modifier(self):

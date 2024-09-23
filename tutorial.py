@@ -1,9 +1,7 @@
-from party_member_factory import PartyMemberFactory
-from weapon_factory import WeaponFactory
-from skill_factory import SkillFactory
-from enemy import Enemy
+from enemy_factory import EnemyFactory
 from battle import Battle
 from game_menu import GameMenu
+from emma_pm import EmmaPM
 
 
 class Tutorial:
@@ -15,14 +13,15 @@ class Tutorial:
     def start(self):
         print('\nWelcome to the tutorial')
 
-        # Adding a party member for testing - can remove later
-        party_member_factory = PartyMemberFactory()
-        warrior_friend = party_member_factory.create_party_member('warrior_friend')
-        self.party_members.append(warrior_friend)
+        # Initializing Emma as a party member
+        emma = EmmaPM()
+        self.party_members.append(emma)
 
-        print(f"\n{warrior_friend.name} has joined your party!")
-        print(
-            f"{warrior_friend.name}'s stats: Health: {warrior_friend.health}, Speed: {warrior_friend.speed}, Weapon: {warrior_friend.weapon.name}")
+        print(f"\n{emma.name} has joined your party!")
+        print(f"{emma.name}'s stats: Health: {emma.health}, Speed: {emma.speed}, Weapon: {emma.weapon.name}")
+
+        # Starting tutorial battle
+        self.start_battle()
 
         # Starting tutorial battle
         self.start_battle()
@@ -30,18 +29,15 @@ class Tutorial:
     def start_battle(self):
         print('\nStarting intro battle')
 
-        # Create a simple enemy to battle
-        weapon_factory = WeaponFactory()
-        enemy_weapon = weapon_factory.create_weapon('Claw')
+        # Create enemy using EnemyFactory
+        enemy_factory = EnemyFactory()
 
-        skill_factory = SkillFactory()
-        skills = [skill_factory.create_skill('Slash')]
-
-        # name, health, level, exp, speed, weapon, defence, gold, class_type, skills
-        enemy = Enemy('Goblin', 20, 1, 10, 6, enemy_weapon, 1, 5, 'monster', skills=skills)
+        # Create two enemies for the battle (adjust levels as needed)
+        goblin = enemy_factory.create_enemy('Cave Goblin', level=1)
+        orc = enemy_factory.create_enemy('Orc Soldier', level=1)
 
         # Start the battle using the GameMenu or Battle class
-        battle = Battle(self.player, [enemy], self.party_members)
+        battle = Battle(self.player, [goblin, orc], self.party_members)
         battle.start_battle()
 
         # After the battle, continue with the tutorial or move to the game menu

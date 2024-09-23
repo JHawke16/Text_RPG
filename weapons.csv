@@ -1,0 +1,13 @@
+﻿name,damage,energy,value,allowed_classes,weapon_type,basic_weight,common_weight,masterwork_weight,rare_weight,epic_weight
+Copper Sword,9,3,5,warrior;berserker,sword,70,30,0,0,0
+Claw,5,2,0,monster,monster,100,0,0,0,0
+Wooden Staff,3,14,7,mage;sorcerer,staff,70,30,0,0,0
+Wooden Club,5,1,3,commoner;warrior;monster,club,100,0,0,0,0
+Copper Dagger,7,3,4,rogue;monster,dagger,70,30,0,0,0
+Bite,7,3,0,monster,monster,100,0,0,0,0
+Iron Sword,16,4,60,warrior;berserker,sword,50,40,10,0,0
+Jagged Sword,10,2,0,monster,monster,70,30,0,0,0
+Tusk,9,2,0,monster,monster,100,0,0,0,0
+Copper Knife,6,2,3,rogue;monster,knife,100,0,0,0,0
+Iron Dagger,14,6,55,rogue;monster,dagger,50,40,10,0,0
+Bone Staff,3,15,0,monster,staff,100,0,0,0,0

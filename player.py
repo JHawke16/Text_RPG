@@ -60,11 +60,10 @@ class Player:
 
         # Asking player to select a skill
         try:
-            choice = int(input("Choose a skill to use (enter the number): ")) - 1
+            choice = int(input("\nChoose a skill to use (enter the number): ")) - 1
             if 0 <= choice < len(available_skills):
                 selected_skill = available_skills[choice]
                 if self.weapon.energy >= selected_skill.energy:
-                    print(f"\n{self.name} uses {selected_skill.name}!")
                     self.weapon.energy -= selected_skill.energy  # Deduct energy from weapon
                     return selected_skill.damage  # Return damage to apply
 

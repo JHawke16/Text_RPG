@@ -1,6 +1,7 @@
-from player import Player
-from weapon_factory import WeaponFactory
-from skill_factory import SkillFactory
+from warrior_player import WarriorPlayer
+from rogue_player import RoguePlayer
+from mage_player import MagePlayer
+from commoner_player import CommonerPlayer
 
 
 class CharacterCreation:
@@ -20,25 +21,25 @@ class CharacterCreation:
                 'health': 17,
                 'speed': 20,
                 'defence': 2,
-                'starting_weapon': 'Dagger',  # Placeholder
+                'starting_weapon': 'Copper Dagger',
                 'class_type': 'rogue',
-                'skills': ['Sap, Backstab']  # Placeholder skills
+                'skills': ['Sap', 'Backstab']
             },
             'mage': {
                 'health': 15,
                 'speed': 8,
                 'defence': 1,
-                'starting_weapon': 'Fire Staff',  # Placeholder
+                'starting_weapon': 'Wooden Staff',
                 'class_type': 'mage',
-                'skills': ['Flames', 'Fireball']  # Placeholder skills
+                'skills': ['Flames', 'Fireball']
             },
             'commoner': {
                 'health': 15,
                 'speed': 6,
                 'defence': 1,
-                'starting_weapon': 'Club',  # Placeholder
+                'starting_weapon': 'Wooden Club',
                 'class_type': 'commoner',
-                'skills': ['Bash', 'Whack']  # Placeholder skills
+                'skills': ['Bash', 'Whack']
             }
         }
 
@@ -67,27 +68,15 @@ class CharacterCreation:
         # Character Name
         name = input('\nEnter a name for your character: ')
 
-        # Getting the setup data
-        setup = self.setups[chosen_class]
-
-        # Initialising the weapon using the WeaponFactory
-        weapon_factory = WeaponFactory()
-        starting_weapon = weapon_factory.create_weapon(setup['starting_weapon'])
-
-        # Use the SkillFactory to create actual Skill objects
-        skill_factory = SkillFactory()
-        skills = [skill_factory.create_skill(skill_name) for skill_name in setup['skills']]
-
-        # Returning player instance
-        return Player(
-            name=name,
-            health=setup['health'],
-            level=1,
-            exp=0,
-            speed=setup['speed'],
-            weapon=starting_weapon,
-            defence=setup['defence'],
-            gold=0,
-            class_type=setup['class_type'],
-            skills=skills
-        )
+        # Create an instance of the chosen player class
+        if chosen_class == 'warrior':
+            return WarriorPlayer(name)
+        elif chosen_class == 'rogue':
+            return RoguePlayer(name)
+        elif chosen_class == 'mage':
+            return MagePlayer(name)
+        elif chosen_class == 'commoner':
+            return CommonerPlayer(name)
+        else:
+            print("Invalid class choice")
+            self.create_character()

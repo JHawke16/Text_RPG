@@ -18,6 +18,7 @@ class Battle:
             for combatant in self.combatants:
                 if combatant.check_alive():
                     self.take_turn(combatant)
+                    print('-' * 40)
                     if not self.battle_active():
                         break
 
@@ -36,7 +37,7 @@ class Battle:
         print("1. Attack")
         print("2. Use Skill")
 
-        choice = input("Choose your action: ")
+        choice = input("\nChoose your action: ")
 
         if choice == '1':
             self.basic_attack(self.player, self.enemies)
@@ -63,7 +64,6 @@ class Battle:
                     print(f"{party_member.name} uses a skill on {target.name} for {damage} damage!")
                     target.take_damage(damage)
             else:
-                print(f"{party_member.name} does not have enough energy for any skills.")
                 self.basic_attack(party_member, self.enemies)
         else:
             self.basic_attack(party_member, self.enemies)
@@ -77,8 +77,6 @@ class Battle:
                     print(f"{enemy.name} uses a skill on {target.name} for {damage} damage!")
                     target.take_damage(damage)
             else:
-                print(
-                    f"{enemy.name} does not have enough energy for any skills.")  # Debugging only, remove in main game
                 self.basic_attack(enemy, [self.player] + self.party)
         else:
             self.basic_attack(enemy, [self.player] + self.party)
@@ -123,5 +121,24 @@ class Battle:
     def end_battle(self):
         if self.player.check_alive():
             print("\nBattle Won!")
+            # Distribute loot: gold and experience
+            self.distribute_loot()
+
         else:
             print("\nBattle Lost!")
+
+    def distribute_loot(self):
+        total_exp = sum(enemy.exp for enemy in self.enemies)
+        total_gold = sum(enemy.gold for enemy in self.enemies)
+
+        # Player gets all the gold
+        self.player.gain_gold(total_gold)
+
+        # Split experience between player and party members
+        members = [self.player] + self.party
+        exp_per_member = total_exp // len(members) if members else 0
+
+        for member in members:
+            member.gain_exp(exp_per_member)
+
+        print(f"\nExp Earned: {total_exp} exp shared among party members.")

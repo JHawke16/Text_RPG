@@ -49,7 +49,6 @@ class PartyMember:
         available_skills = [skill for skill in self.skills if skill.energy <= self.weapon.energy]
         if available_skills:
             selected_skill = random.choice(available_skills)
-            print(f"\n{self.name} uses {selected_skill.name}!")
             self.weapon.energy -= selected_skill.energy  # Deduct energy from weapon
             return selected_skill.damage  # Return damage to apply
         else:
