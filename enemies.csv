@@ -1,7 +1,11 @@
-﻿name,health,speed,weapon,defence,class_type,skills
-Cave Goblin,10,3,Claw,1,weak;small;slow;monster,Slash;Whack
-Orc Soldier,20,7,Jagged Sword,2,weak;small;monster,Slash;Whack;Maul
-Wild Boar,15,7,Tusk,1,weak;small;animal;quest,Impale
-Wild Dog,12,8,Bite,1,weak;small;animal;quest,Maul
-Gremlin Mutant,7,5,Copper Knife,0,weak;small;monster,Strike
-Orc Shaman,35,5,Bone Staff,2,weak;leader;small;mage;monster,Chaos Bolt;Bone Shard
+﻿name,health,speed,weapon,defence,class_type,skills,loot_table
+Cave Goblin,10,3,Claw,1,weak;small;monster,Slash;Whack,small_monster_loot;goblin_loot
+Orc Soldier,20,7,Jagged Sword,2,weak;small;monster,Slash;Whack;Maul,small_monster_loot;orc_loot
+Wild Boar,15,7,Tusk,1,weak;small;animal;quest,Impale,small_animal_loot;boar_loot
+Wild Dog,12,8,Bite,1,weak;small;animal;quest,Maul,small_animal_loot
+Gremlin Mutant,7,5,Copper Knife,0,weak;small;monster,Strike,small_monster_loot
+Orc Shaman,35,5,Bone Staff,2,weak;small;leader;mage;monster,Chaos Bolt;Bone Shard,small_monster_loot;orc_loot;small_monster_mage_loot
+Orc Rogue,15,15,Jagged Dagger,1,weak;small;monster,Sap;Backstab,small_monster_loot;orc_loot
+Common Bandit,25,8,Bronze Sword,2,weak;small;human,Slash;Strike,human_loot;bandit_loot
+Bandit Rogue,20,17,Bronze Dagger,1,weak;small;human,Elusive Strike,human_loot;bandit_loot
+Bandit Captain,50,13,Copper Two Handed Sword,3,weak;small;leader;human,Brutal Slash,human_loot;bandit_loot;bandit_captain_loot

@@ -1,7 +1,9 @@
-from enemy_factory import EnemyFactory
 from battle import Battle
-from game_menu import GameMenu
 from emma_pm import EmmaPM
+from enemy_factory import EnemyFactory
+from game_menu import GameMenu
+from item_factory import ItemFactory
+from loot_table_factory import LootTableFactory
 
 
 class Tutorial:
@@ -20,26 +22,25 @@ class Tutorial:
         print(f"\n{emma.name} has joined your party!")
         print(f"{emma.name}'s stats: Health: {emma.health}, Speed: {emma.speed}, Weapon: {emma.weapon.name}")
 
-        # Starting tutorial battle
-        self.start_battle()
+        # Adding the factories
+        item_factory = ItemFactory()
+        loot_table_factory = LootTableFactory()
 
-        # Starting tutorial battle
-        self.start_battle()
+        # Starting the tutorial battle
+        self.start_battle(item_factory, loot_table_factory)
 
-    def start_battle(self):
+    def start_battle(self, item_factory, loot_table_factory):
         print('\nStarting intro battle')
 
-        # Create enemy using EnemyFactory
+        # Initialize enemy factory and create enemies
         enemy_factory = EnemyFactory()
-
-        # Create two enemies for the battle (adjust levels as needed)
         goblin = enemy_factory.create_enemy('Cave Goblin', level=1)
         orc = enemy_factory.create_enemy('Orc Soldier', level=1)
 
-        # Start the battle using the GameMenu or Battle class
+        # Start the battle, passing in the item_factory and loot_table_factory
         battle = Battle(self.player, [goblin, orc], self.party_members)
-        battle.start_battle()
+        battle.start_battle(item_factory, loot_table_factory)
 
-        # After the battle, continue with the tutorial or move to the game menu
+        # After battle, return to the game menu or continue tutorial
         print("\nTutorial complete! Returning to game menu...")
         GameMenu(self.player, self.party_members).display_menu()

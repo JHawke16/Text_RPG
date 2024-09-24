@@ -1,0 +1,13 @@
+﻿loot_table,item_name,drop_chance
+boar_loot,Boar Hide,0.2
+small_monster_loot,Small Health Potion,0.1
+small_animal_loot,Pelt,0.1
+goblin_loot,Goblin Horn,0.1
+orc_loot,Torn Shirt,0.2
+orc_loot,Tiny Gem,0.05
+small_monster_mage_loot,Small Energy Potion,0.1
+small_monster_mage_loot,Small Hybrid Potion,0.05
+human_loot,Small Gold Pouch,0.1
+bandit_loot,Bandit Crest,0.1
+bandit_loot,Stolen Goods,0.1
+bandit_captain_loot,Medium Gold Pouch,0.1

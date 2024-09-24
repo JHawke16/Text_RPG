@@ -2,7 +2,7 @@ import random
 
 
 class Enemy:
-    def __init__(self, name, health, speed, weapon, defence, class_type, skills, level=1):
+    def __init__(self, name, health, speed, weapon, defence, class_type, skills, loot_table, level=1):
         self.name = name
         self.base_health = health
         self.speed = speed
@@ -10,6 +10,7 @@ class Enemy:
         self.defence = defence
         self.class_type = class_type
         self.skills = skills
+        self.loot_table = loot_table  # New loot_table parameter
         self.level = level
         self.health = self.base_health  # Final health after scaling
         self.gold = 10  # Starting gold (scalable)
@@ -51,7 +52,7 @@ class Enemy:
         return self.weapon.damage
 
     def skill_attack(self):
-        # Selecting a skill random from the available skills with enough energy in the weapon
+        # Selecting a skill randomly from the available skills with enough energy in the weapon
         available_skills = [skill for skill in self.skills if skill.energy <= self.weapon.energy]
         if available_skills:
             selected_skill = random.choice(available_skills)
@@ -60,3 +61,21 @@ class Enemy:
         else:
             print(f"\n{self.name}'s weapon does not have enough energy for any skills.")
             return False  # No skill used
+
+    def drop_loot(self, item_factory, loot_table_factory):
+        # Dropping loot based on the enemy's loot table.
+        # print(f"{self.name} defeated! Checking loot table: {self.loot_table}") # Keep for debugging
+
+        loot_items = []
+        for loot_table in self.loot_table:
+            # Retrieving loot from each loot table assigned to the enemy
+            loot_items += loot_table_factory.get_loot_from_table(loot_table)
+
+        dropped_items = []
+        for loot_item in loot_items:
+            # Creating the item using the ItemFactory
+            item = item_factory.create_item(loot_item['item_name'])
+            print(f"\n{self.name} dropped {item.name}.")
+            dropped_items.append(item)
+
+        return dropped_items  # Returning the list of dropped items

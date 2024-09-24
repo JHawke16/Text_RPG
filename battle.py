@@ -1,6 +1,7 @@
-from player import Player
-from party_member import PartyMember
 import random
+
+from party_member import PartyMember
+from player import Player
 
 
 class Battle:
@@ -10,7 +11,7 @@ class Battle:
         self.party = party if party is not None else []
         self.combatants = [player] + self.party + enemies
 
-    def start_battle(self):
+    def start_battle(self, item_factory, loot_table_factory):
         # Sort combatants by speed in descending order for turn order
         self.combatants.sort(key=lambda x: x.speed, reverse=True)
 
@@ -22,7 +23,7 @@ class Battle:
                     if not self.battle_active():
                         break
 
-        self.end_battle()
+        self.end_battle(item_factory, loot_table_factory)
 
     def take_turn(self, combatant):
         if isinstance(combatant, Player):
@@ -118,16 +119,16 @@ class Battle:
             return False
         return True
 
-    def end_battle(self):
+    def end_battle(self, item_factory, loot_table_factory):
         if self.player.check_alive():
             print("\nBattle Won!")
-            # Distribute loot: gold and experience
-            self.distribute_loot()
-
+            # Distribute loot: gold, experience, and items
+            self.distribute_loot(item_factory, loot_table_factory)
         else:
             print("\nBattle Lost!")
 
-    def distribute_loot(self):
+    def distribute_loot(self, item_factory, loot_table_factory):
+        # Distribute loot among the player and party members.
         total_exp = sum(enemy.exp for enemy in self.enemies)
         total_gold = sum(enemy.gold for enemy in self.enemies)
 
@@ -141,4 +142,9 @@ class Battle:
         for member in members:
             member.gain_exp(exp_per_member)
 
-        print(f"\nExp Earned: {total_exp} exp shared among party members.")
+        # Distribute loot items
+        for enemy in self.enemies:
+            if not enemy.check_alive():
+                dropped_items = enemy.drop_loot(item_factory, loot_table_factory)
+                for item in dropped_items:
+                    self.player.add_to_inventory(item)

@@ -1,7 +1,8 @@
+import csv
+
+from enemy import Enemy
 from skill_factory import SkillFactory
 from weapon_factory import WeaponFactory
-from enemy import Enemy
-import csv
 
 
 class EnemyFactory:
@@ -22,7 +23,8 @@ class EnemyFactory:
                     'weapon': row['weapon'],  # Weapon loaded later
                     'defence': int(row['defence']),
                     'class_type': row['class_type'],
-                    'skills': row['skills'].split(';')
+                    'skills': row['skills'].split(';'),
+                    'loot_table': row['loot_table'].split(';')  # New loot_table field
                 }
         return enemies
 
@@ -47,5 +49,6 @@ class EnemyFactory:
             defence=blueprint['defence'],
             class_type=blueprint['class_type'],
             skills=skills,
-            level=level  # Scaling starts from level 1
+            loot_table=blueprint['loot_table'],  # Passing loot table to the Enemy class
+            level=level
         )

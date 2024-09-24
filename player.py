@@ -1,3 +1,6 @@
+from consumable_item import ConsumableItem
+
+
 class Player:
 
     def __init__(self, name, health, level, exp, speed, weapon, defence, gold, class_type, skills):
@@ -12,6 +15,7 @@ class Player:
         self.class_type = class_type
         self.skills = skills
         self.exp_to_next_level = 10
+        self.inventory = []  # Inventory to hold items
 
     def check_alive(self):
         return self.health > 0
@@ -77,3 +81,20 @@ class Player:
             print("Please enter a valid number!")
 
         return self.skill_attack()  # Retry selection if input is invalid
+
+    def add_to_inventory(self, item):
+        # Add an item to the player's inventory.
+        self.inventory.append(item)
+        print(f"\n{item.name} has been added to your inventory.")
+
+    def use_item(self, item_name):
+        # Use an item from the inventory.
+        for item in self.inventory:
+            if item.name == item_name:
+                if isinstance(item, ConsumableItem):
+                    item.use(self)  # Apply the item's effect
+                    self.inventory.remove(item)  # Remove the item after use if it's consumable
+                else:
+                    print(f"{item.name} cannot be used.")
+                return
+        print(f"{item_name} not found in inventory.")

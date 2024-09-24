@@ -13,3 +13,4 @@ Strike,9,1,10,sword;axe;monster;dagger;knife,100,0,0,0,0
 Burn,23,5,25,staff;wand;monster,70,30,0,0,0
 Chaos Bolt,20,3,30,staff;wand;monster,70,30,0,0,0
 Bone Shard,15,1,30,staff;wand;monster,70,30,0,0,0
+Elusive Strike,24,3,35,dagger;knife,50,40,10,0,0

@@ -1,0 +1,13 @@
+﻿item_name,value,item_type,effect,category
+Boar Hide,10,material,,material;quest
+Small Health Potion,20,consumable,restore 20 hp,consumable
+Pelt,5,material,,material
+Goblin Horn,15,material,,material;quest
+Torn Shirt,5,material,,material
+Tiny Gem,50,material,,material
+Small Energy Potion,30,consumable,restore 10 energy,consumable
+Small Hybrid Potion,40,consumable,restore 10 hp and 5 energy,consumable
+Small Gold Pouch,30,material,,material
+Bandit Crest,20,material,,material;quest
+Stolen Goods,10,material,,material
+Medium Gold Pouch,70,material,,material

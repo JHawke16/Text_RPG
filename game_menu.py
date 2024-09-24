@@ -8,7 +8,7 @@ class GameMenu:
         while True:
             print("\nGame Menu:")
             print("1. Continue")
-            print("2. View Items (Placeholder)")
+            print("2. View Items")
             print("3. View Stats")
             print("4. View Party Members")
             print("5. View Quests (Placeholder)")
@@ -22,7 +22,7 @@ class GameMenu:
                 print("Continuing the game...")
                 break  # Placeholder to simulate game progression
             elif choice == '2':
-                print("View Items - (Placeholder)")
+                self.view_items()  # Displaying items in inventory
             elif choice == '3':
                 self.view_stats()
             elif choice == '4':
@@ -35,12 +35,19 @@ class GameMenu:
                 print("Save - (Placeholder)")
             elif choice == '8':
                 print("Exiting to Main Menu...")
-                # Lazy import MainMenu inside the function to avoid circular import
                 from main_menu import MainMenu
                 MainMenu().display_menu()  # Return to main menu
                 break
             else:
                 print("Invalid choice, please try again.")
+
+    def view_items(self):
+        if not self.player.inventory:
+            print("\nYour inventory is empty.")
+        else:
+            print("\nYour inventory:")
+            for i, item in enumerate(self.player.inventory, 1):
+                print(f"{i}. {item.name}")
 
     def view_stats(self):
         print(f"\n{self.player.name}'s Stats:")
